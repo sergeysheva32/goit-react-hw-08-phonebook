@@ -1,7 +1,7 @@
 import { FaTrashAlt, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsLoading, getContacts, getFilter } from '../../redux/selectors';
-import { deleteContact } from '../../redux/operations';
+import { getIsLoading, getContacts, getFilter } from '../../redux/contacts/selectors';
+import { deleteContact } from '../../redux/contacts/operations';
 
 import {
   ListIcon,

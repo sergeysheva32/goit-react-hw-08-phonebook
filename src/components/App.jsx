@@ -1,38 +1,23 @@
-import { Wrapper } from './Wrapper';
-import { GlobalStyle } from './GlobalStyle';
-import { useEffect } from 'react';
-import { Section } from './Section';
-import { ContactForm } from './ContactForm/ContactForm.jsx';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter';
-import { useDispatch } from 'react-redux';
-import { fetchContacts } from '../redux/operations';
+import { lazy } from "react";
+import { Route, Routes } from "react-router-dom";
+import { Layout } from "./Layout";
 
-import { useSelector } from 'react-redux';
-import { getContacts } from '../redux/selectors';
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
+
 
 export const App = () => {
-  const contacts = useSelector(getContacts);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
 
   return (
-    <Wrapper>
-      <Section title="Add contact">
-        <ContactForm />
-      </Section>
-      
-      {contacts.length > 0 && 
-        <Section title="Contacts" headerContent={<Filter />}>
-          <ContactList />
-        </Section>
-      }
-
-      <GlobalStyle />
-    </Wrapper>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/register" element={<RegisterPage/>} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+      </Route>
+    </Routes>
   );
 };
