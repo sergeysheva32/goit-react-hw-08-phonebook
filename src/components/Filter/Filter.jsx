@@ -1,20 +1,21 @@
 import { useDispatch } from 'react-redux';
 import { changeFilter } from '../../redux/contacts/slice';
+import Form from 'react-bootstrap/Form';
 
-import { FilterContainer, FilterLabel, FilterInput } from './Filter.styled';
+import { Section } from './Filter.styled';
 
 export const Filter = () => {
   const dispatch = useDispatch();
 
   return (
-    <FilterContainer>
-      <FilterInput
-        name="filterInput"
-        type="text"
-        placeholder="Find contacts by name"
+    <Section>
+      <Form.Control
+      name="filterInput"
+              type="text"
+              placeholder="Find contacts by name"
+        className=" mr-sm-2"
         onChange={e => dispatch(changeFilter(e.target.value))}
-      ></FilterInput>
-      <FilterLabel></FilterLabel>
-    </FilterContainer>
+      />
+      </Section>
   );
 };

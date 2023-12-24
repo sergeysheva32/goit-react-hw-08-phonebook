@@ -1,6 +1,6 @@
 import { FaTrashAlt, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIsLoading, getContacts, getFilter } from '../../redux/contacts/selectors';
+import { selectLoading, selectContacts, selectFilter } from '../../redux/contacts/selectors';
 import { deleteContact } from '../../redux/contacts/operations';
 
 import {
@@ -16,9 +16,9 @@ import {
 
 export const ContactList = () => {
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
-  const isLoading = useSelector(getIsLoading);
-  const filter = useSelector(getFilter);
+  const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectLoading);
+  const filter = useSelector(selectFilter);
 
   const getFilteredContacts = () => {
     return contacts.filter(contact =>

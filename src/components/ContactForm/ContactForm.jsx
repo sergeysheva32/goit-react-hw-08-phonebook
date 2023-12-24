@@ -1,23 +1,20 @@
-import { AiOutlineUserAdd } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Form,
-  LabelContainer,
-  Label,
-  InputContainer,
-  Input,
-  Button,
-} from './ContactForm.styled';
-import { getContacts } from '../../redux/contacts/selectors';
+import { Section } from './ContactForm.styled';
+import { selectContacts } from '../../redux/contacts/selectors';
 import { addContact } from '../../redux/contacts/operations';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
+import { Filter } from '../Filter/Filter';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
+
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -34,44 +31,39 @@ export const ContactForm = () => {
     } else {
       dispatch(addContact(newContact));
       }
-
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <InputContainer>
-        <LabelContainer>
-          <Input
-            type="text"
+    <><Section>
+<Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Control type="text"
             name="name"
             placeholder="Name"
             pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             value={contacts.name}
             onChange={e => setName(e.target.value)}
-            required
-          ></Input>
-          <Label htmlFor="name"></Label>
-        </LabelContainer>
-
-        <LabelContainer>
-          <Input
-            type="tel"
+          required
+        />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Control type="tel"
             name="number"
             placeholder="Number"
             pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             value={contacts.number}
-            onChange={e => setNumber(e.target.value)}
-          ></Input>
-          <Label></Label>
-        </LabelContainer>
-      </InputContainer>
-      <Button type="submit">
-        <AiOutlineUserAdd />
+          onChange={e => setNumber(e.target.value)}
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit">
         Add contact
       </Button>
-    </Form>
+      <Filter/>
+      </Form>
+    </Section>
+</>
   );
 };

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import {
   PhonebookSection,
   PhonebookContainer,
@@ -19,9 +17,4 @@ export const Section = ({ title, children, headerContent }) => {
       </PhonebookContainer>
     </PhonebookSection>
   );
-};
-
-Section.propTypes = {
-  title: PropTypes.string.isRequired,
-  children: PropTypes.node.isRequired,
 };

@@ -1,6 +1,9 @@
 import { useDispatch } from 'react-redux';
-import css from './RegisterForm.module.css';
 import { register } from '../../redux/auth/operations';
+import { NavLink } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -18,20 +21,28 @@ export const RegisterForm = () => {
   };
 
   return (
-    <form className={css.form} onSubmit={handleSubmit} autoComplete="off">
-      <label className={css.label}>
-        Username
-        <input type="text" name="name" />
-      </label>
-      <label className={css.label}>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label className={css.label}>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Register</button>
-    </form>
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3">
+        <Form.Label>Username</Form.Label>
+        <Form.Control type="name" placeholder="Username" autoComplete="username"/>
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email address</Form.Label>
+        <Form.Control type="email" placeholder="Enter email" autoComplete="email"/>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" placeholder="Password" autoComplete="current-password"/>
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Sign up
+      </Button>
+      <p>Have an account?  
+        <NavLink to="/login">
+        Sign in
+      </NavLink>
+      </p>
+    </Form>
   );
 };

@@ -1,20 +1,27 @@
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { ContactForm } from '../components/ContactForm';
 import { ContactList } from '../components/ContactList/ContactList';
-import { ContactEditor } from '../components/ContactEditor/ContactEditor';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectLoading } from '../redux/contacts/selectors';
+import { fetchContacts } from '../redux/contacts/operations';
 
-export default function Tasks() {
 
+
+export default function Contacts() {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(selectLoading);
+
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
 
   return (
-    <HelmetProvider>
+    
     <>
-      <Helmet>
-        <title>Your tasks</title>
-      </Helmet>
-      <ContactEditor />
-      <div>'Request in progress...'</div>
+        <title>Your contacts</title>
+      <ContactForm />
+      <div>{isLoading && 'Request in progress...'}</div>
       <ContactList />
     </>
-    </HelmetProvider>
   );
 }
